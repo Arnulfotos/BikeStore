@@ -11,7 +11,8 @@ namespace BikeStore.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,6 +29,15 @@ namespace BikeStore.Models
         public string phone { get; set; }
         public byte active { get; set; }
         public int store_id { get; set; }
+
+        [NotMapped]
+        public string full_name
+        {
+            get
+            {
+                return $"{this.first_name} {this.last_name}";
+            }
+        }
         public Nullable<int> manager_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

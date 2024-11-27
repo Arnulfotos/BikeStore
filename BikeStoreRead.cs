@@ -29,11 +29,11 @@ namespace BikeStore
             var context = new Models.BikeStoresEntities();
 
             //Acceder a datos 
-            List<Models.customer> CustomerList = new List<Models.customer>();
-            CustomerList = context.customers.ToList();
+            List<Models.customer> CustomerList = context.customers.ToList();
             List<Models.product> ProductList = context.products.ToList();
-            List<Models.staff> StaffList = new List<Models.staff>();
-            StaffList = context.staffs.ToList();
+            List<Models.staff> StaffList = context.staffs.ToList();
+            List<Models.order> OrdersList = context.orders.ToList();
+
             foreach (var Customer in CustomerList)
             {
                 CustomerListView.Items.Add(new MaterialListBoxItem { Text = $"{Customer.first_name} {Customer.last_name} {Customer.email}" });
@@ -41,6 +41,10 @@ namespace BikeStore
             foreach (var Product in ProductList)
             {
                ProductListView.Items.Add(new MaterialListBoxItem { Text = $"{Product.product_name} {Product.list_price}", Tag = Product });
+            }
+            foreach (var Order in OrdersList)
+            {
+                Orders.Items.Add(new MaterialListBoxItem { Text = $"{Order.order_id} {Order.customer.full_name}", Tag = Order });
             }
 
             /*foreach (var Member in StaffList)
@@ -75,24 +79,46 @@ namespace BikeStore
                 var newAddOrEditProduct = new AddOrEditProducts();
                 newAddOrEditProduct.SelectedProduct = (product) itemSelected;
                 newAddOrEditProduct.ShowDialog();
-                if(newAddOrEditProduct.ShowDialog() == DialogResult.OK)
-                {
-                    var context = new Models.BikeStoresEntities();
-                    List<Models.product> ProductList = context.products.ToList();
-                    foreach (var Product in ProductList)
-                    {
-                        ProductListView.Items.Add(new MaterialListBoxItem { Text = $"{Product.product_name} {Product.list_price}", Tag = Product });
-                    }
 
-                    newAddOrEditProduct.SelectedProduct = (product)itemSelected;
-                    newAddOrEditProduct.Close();
-                    Start = true;
-                }
+                
 
 
 
             }
             //ProductData.Text = selectedItem.Text;
+        }
+
+        private void Refresh_Click(object sender, EventArgs e)
+        {
+            var context = new Models.BikeStoresEntities();
+
+            ProductListView.Items.Clear();
+            List<Models.product> ProductList = context.products.ToList();
+
+
+            foreach (var Product in ProductList)
+            {
+                ProductListView.Items.Add(new MaterialListBoxItem { Text = $"{Product.product_name} {Product.list_price}", Tag = Product });
+            }
+
+            Start = true;
+        }
+
+        private void Orders_SelectedIndexChanged(object sender, MaterialListBoxItem selectedItem)
+        {
+            var itemSelected = Orders.SelectedItem.Tag;
+
+            if (!Start)
+            {
+                var newReadOrders = new ReadOrders();
+                newReadOrders.SelectedOrder = (order)itemSelected;
+                newReadOrders.ShowDialog();
+
+
+
+
+
+            }
         }
     }
 }

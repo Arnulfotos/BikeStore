@@ -11,7 +11,8 @@ namespace BikeStore.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,6 +30,15 @@ namespace BikeStore.Models
         public string city { get; set; }
         public string state { get; set; }
         public string zip_code { get; set; }
+
+        [NotMapped]
+        public string full_name
+        {
+            get
+            {
+                return $"{this.first_name} {this.last_name}";
+            }
+        }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order> orders { get; set; }

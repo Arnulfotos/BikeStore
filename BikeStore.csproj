@@ -246,6 +246,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReadOrders.Designer.cs">
+      <DependentUpon>ReadOrders.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddOrEditProducts.resx">
       <DependentUpon>AddOrEditProducts.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +279,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReadOrders.resx">
+      <DependentUpon>ReadOrders.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Models\BikeStoreModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BikeStoreModel.Designer.cs</LastGenOutput>
